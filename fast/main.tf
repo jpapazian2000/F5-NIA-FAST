@@ -6,10 +6,28 @@ terraform {
     }
   }
 }
+
+data "terraform_remote_sate" "f5_setup" {
+  backend = "remote"
+  config = {
+    organization = "jpapazian-org"
+    workspaces = {
+      name = "F5-NIA-TFCB"
+        }
+   }
+}
+ 
+locals {
+ address = data.terraform_remote_state.f5_setup.outputs.F5_UI
+ port = "8443"
+ username = "admin"
+ password = data.terraform_remote_state.f5_setup.outputs.F5_Password
+ }
+
 provider "bigip" {
-  address  = "https://${var.address}:${var.port}"
-  username = var.username
-  password = var.password
+  address  = "https://local.address:local.port"
+  username = local.username
+  password = local.password
 }
 
 # generate zip file
