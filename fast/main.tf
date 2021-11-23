@@ -40,7 +40,7 @@ data "archive_file" "template_zip" {
 
 # deploy fast template
 
-resource "bigip_fast_template" "consul-webinar" {
+resource "bigip_fast_template" "consul-webinar2" {
   name = "ConsulWebinar"
   source = "ConsulWebinar.zip"
   md5_hash = filemd5("ConsulWebinar.zip")
@@ -57,5 +57,5 @@ resource "bigip_fast_application" "nginx-webserver" {
       "virtualPort": 8080
 }
 EOF
-  depends_on = [bigip_fast_template.consul-webinar]
+  depends_on = [bigip_fast_template.consul-webinari2]
 }
