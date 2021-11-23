@@ -7,7 +7,7 @@ terraform {
   }
 }
 
-data "terraform_remote_sate" "f5_setup" {
+data "terraform_remote_state" "f5_setup" {
   backend = "remote"
   config = {
     organization = "jpapazian-org"
