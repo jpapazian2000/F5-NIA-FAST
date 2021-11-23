@@ -4,4 +4,5 @@
 #variable "password" {}
 variable "declaration" {
   default = "nginx.json"
+  description = "test"
 }
