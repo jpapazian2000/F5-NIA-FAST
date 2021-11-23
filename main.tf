@@ -1,34 +1,34 @@
 terraform {
   required_providers {
     bigip = {
-      #source  = "F5Networks/bigip"
-      #version = "1.12.0"
-     source = "terraform-providers/bigip"
+      source  = "F5Networks/bigip"
+      version = "1.12.0"
+     #source = "terraform-providers/bigip"
     }
   }
 }
 
-data "terraform_remote_state" "f5_setup" {
-  backend = "remote"
-  config = {
-    organization = "jpapazian-org"
-    workspaces = {
-      name = "F5-NIA-TFCB"
-        }
-   }
-}
+#data "terraform_remote_state" "f5_setup" {
+#  backend = "remote"
+#  config = {
+#    organization = "jpapazian-org"
+#    workspaces = {
+#      name = "F5-NIA-TFCB"
+#        }
+#   }
+#}
  
-locals {
- address = data.terraform_remote_state.f5_setup.outputs.F5_UI
- port = "8443"
- username = "admin"
- password = data.terraform_remote_state.f5_setup.outputs.F5_Password
- }
+#locals {
+# address = data.terraform_remote_state.f5_setup.outputs.F5_UI
+# port = "8443"
+# username = "admin"
+# password = data.terraform_remote_state.f5_setup.outputs.F5_Password
+# }
 
 provider "bigip" {
-  address  = "https://local.address:local.port"
-  username = local.username
-  password = local.password
+  address  = "https://${var.address}:${var.port}"
+  username = "${var.username}"
+  password = "${var.password}"
 }
 
 # generate zip file
