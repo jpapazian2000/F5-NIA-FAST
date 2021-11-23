@@ -1,3 +1,3 @@
 output "app_url" {
-  value = "http://${var.address}:8080"
+  value = "http://local.address:8080"
 }
