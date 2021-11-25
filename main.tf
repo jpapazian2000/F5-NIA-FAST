@@ -27,8 +27,8 @@ terraform {
 
 provider "bigip" {
   address  = "https://${var.address}:${var.port}"
-  username = "${var.username}"
-  password = "${var.password}"
+  username = var.username
+  password = var.password
 }
 
 # generate zip file
