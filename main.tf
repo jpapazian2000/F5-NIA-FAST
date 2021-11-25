@@ -48,6 +48,13 @@ resource "bigip_fast_template" "consul-webinar" {
   depends_on = [data.archive_file.template_zip]
 }
 
+resource "time_sleep" "wait_1_mn" {
+  depends_on = [bigip_fast_template.consul-webinar]
+
+  create_duration = "60s"
+}
+
+
 resource "bigip_fast_application" "nginx-webserver" {
   template        = "ConsulWebinar/ConsulWebinar"
   fast_json   = <<EOF
@@ -58,5 +65,6 @@ resource "bigip_fast_application" "nginx-webserver" {
       "virtualPort": 8080
 }
 EOF
-  depends_on = [bigip_fast_template.consul-webinar]
+  #depends_on = [bigip_fast_template.consul-webinar]
+  depends_on = [time_sleep.wait_1_mn]
 }
